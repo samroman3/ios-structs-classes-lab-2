@@ -7,10 +7,21 @@ Using the Room struct below, write code that demonstrates that it is a value typ
 
 ```swift
 struct Room {
-     let maxOccupancy: Int
-     let length: Double
-     let width: Double
+let maxOccupancy: Int
+let length: Double
+let width: Double
 }
+var someRoom = Room(maxOccupancy: 40, length: 30.0, width: 20.0)
+
+var anotherRoom = someRoom
+
+someRoom = Room(maxOccupancy: 92, length: 23.9, width: 24.5)
+
+print(anotherRoom)
+
+
+//because Room is a struct and structs are value types when you redeclare someRooms values it does not affect anotherRoom, because it has already stored its values to be the original declaration of someRoom in the computers memory
+
 ```
 
 ## Question 2
@@ -19,9 +30,21 @@ Using the Bike class below, write code that demonstrates that it is a reference 
 
 ```swift
 class Bike {
-    var wheelNumber = 2
-    var hasBell = false
+var wheelNumber = 2
+var hasBell = false
 }
+
+var myBike = Bike()
+
+var ourBike = myBike
+
+myBike.hasBell = true
+
+print(ourBike.hasBell)
+
+//because we changed the property hasBell in myBike to true, and classes are reference types, since ourBike is a reference of myBike and its properties, ourBike.hasBell is also changed to true
+
+
 ```
 
 ## Question 3
@@ -31,13 +54,35 @@ a. Given the Animal class below, create a Bird subclass with a new `canFly` prop
 ```swift
 class Animal {
     var name: String = ""
-    var printDescription() {
+    func printDescription() {
         print("I am an animal named \(name)")
     }
 }
 ```
 
 b. Override the printDescription method to have the instance of the Bird object print out its name and whether it can fly
+
+```swift
+class Bird: Animal {
+var canFly: Bool
+
+init(canFly: Bool, name: String) {
+self.canFly = canFly
+super.init(name: name)
+}
+override func printDescription() {
+if canFly == true {
+print("I am an animal named \(name) and I can fly")
+} else {
+print("I am an animal named \(name) and I cannot fly :(")
+}
+}
+}
+
+var penguin = Bird(canFly: false, name: "penguin")
+
+penguin.printDescription()
+```
 
 
 ## Question 4
@@ -59,6 +104,39 @@ class Bike {
 a. Create a `LoudBike` subclass of Bike.  When you call `ringBell` it should ring the bell in all caps.
 
 b. Give `LoudBike` a new method called `ringBell(times:)` that rings the bell a given number of times
+```swift
+class Bike {
+let wheelNumber = 2
+let wheelWidth = 1.3
+var hasBell = true
+func ringBell() {
+if hasBell {
+print("Ring!")
+}
+}
+}
+
+class LoudBike: Bike {
+override func ringBell() {
+if hasBell {
+print("RING!")
+}
+}
+func ringBell(times: Int){
+if hasBell{
+for _ in 0..<times {
+print("RING")
+}
+}
+}
+}
+
+
+let notMyBike = LoudBike()
+
+notMyBike.ringBell()
+notMyBike.ringBell(times: 6)
+```
 
 
 ## Question 5
@@ -69,6 +147,55 @@ class Shape {
     var area: Double { fatalError("Subclasses must override the area") }
     var perimeter: Double { fatalError("Subclasses must override the perimeter") }
 }
+
+class Square: Shape {
+var sideLength = 5
+override var area: Double {
+get {
+return Double(sideLength) * Double(sideLength)
+}
+}
+override var perimeter: Double {
+get {
+return Double(sideLength) * 4
+}
+}
+override var name: String {
+return("Hey I'm a square. My perimeter is \(perimeter) and my area is \(area)")
+}
+}
+
+
+
+var square1 = Square.init()
+
+square1.perimeter
+
+
+class Rectangle: Shape {
+var width = 6
+var height = 4
+
+override var area: Double {
+get {
+return Double(width * 2) + Double(height * 2)
+}
+}
+
+override var perimeter: Double {
+get {
+return Double(width) * Double(height)
+}
+}
+
+override var name: String {
+return("Hey I'm a rectangle. My perimeter is \(perimeter) and my area is \(area)")
+}
+}
+
+var rectangle1 = Rectangle.init()
+
+print(rectangle1.name)
 ```
 
 a. Given the `Shape` object above, create a subclass `Square` with a property `sideLength` with a default value of 5.
