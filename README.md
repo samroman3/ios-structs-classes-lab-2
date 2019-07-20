@@ -240,8 +240,9 @@ struct Point {
     let x: Double
     let y: Double
     func distance(to point: Point) -> Double {
-      //Code in your answer here
-    }
+      let horizontal = self.x - self.y
+      let vertical = 
+}
 }
 
 let pointOne = Point(x: 0, y: 0)
@@ -257,6 +258,16 @@ b. Given the above Point object, and Circle object below, add a `contains` metho
 struct Circle {
     let radius: Double
     let center: Point
+    func contain(point: Point) -> Bool {
+    return center.distance(to:point) == radius
+}
+func gimmeRandomPoint() -> Point {
+//if we have some x then y = √(r^2) - (x^2)
+let x: Double = Double.random(in: 0 - radius)...radius)
+let y: sqrt(radius * radius - x * x)
+return Point (x: Double, y:Double)
+
+}
 }
 
 let pointOne = Point(x: 0, y: 0)
@@ -303,6 +314,9 @@ model.targetWord = "hello"
 model.guessedLetters = ["h","l"]
 model.printDisplayVersionOfWord
 //prints h_ll_
+
+for letter in targetWord
+
 ```
 
 d. Add a method called `guess(_:)` that takes in a character as input, and updates `guessedLetters` and `numberOfIncorrectGuesses` as appropriate.
