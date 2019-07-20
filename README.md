@@ -305,6 +305,41 @@ model.targetWord = "hello"
 model.guessedLetters = ["h","e","o","l"]
 model.playerWon //true
 ```
+```swift
+
+struct HangmanModel {
+var targetWord: String
+var numberOfIncorrectGuesses: Int
+var guessedLetters: [Character]
+
+func playerWon() -> Bool {
+let targetedSet = Set(targetWord.lowercased())
+let lettersInTargetWord = targetedSet.count
+var letterGuessed = ""
+
+for letter in guessedLetters {
+if targetedSet.contains(letter){
+letterGuessed.append(String(letter.lowercased()))
+}
+}
+
+if lettersInTargetWord == letterGuessed.count {
+return true
+} else {
+return false
+}
+}
+func printDisplayVersionOfWord() -> String {
+
+
+}
+}
+
+
+var model = HangmanModel(targetWord: "hello", numberOfIncorrectGuesses: 0, guessedLetters: ["h","e","l","o"])
+
+model.playerWon()
+```
 
 c. Add a method called `printDisplayVersionOfWord` that prints the `targetWord` replacing characters that are not in `guessedLetters` with "\_"
 
@@ -331,3 +366,4 @@ model.numberOfIncorrectGuesses // 1
 ```
 
 e. Have `guess(_:)` also print out the current display version of the word, the number of incorrect guesses and if the player has won.
+
